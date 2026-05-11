@@ -24,6 +24,15 @@ export const metadata: Metadata = {
   description: "Transform your books into interactive AI conversations. Upload PDFs, and chat with your books using voice.",
 };
 
+/**
+ * Root layout that wraps application pages with global fonts, authentication, and navigation.
+ *
+ * Renders the top-level HTML and BODY elements, applies configured font CSS variables and base
+ * body classes, and provides Clerk authentication context around the Navbar and page content.
+ *
+ * @param children - The page content to render inside the layout
+ * @returns The root HTML structure for the application, including the auth provider, navbar, and children
+ */
 export default function RootLayout({
   children,
 }: Readonly<{

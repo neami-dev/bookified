@@ -2,6 +2,13 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * A styled input component that forwards native input props and merges caller classes with its default styling.
+ *
+ * @param className - Additional CSS class names to merge with the component's predefined Tailwind styles.
+ * @param type - The HTML `type` attribute to apply to the underlying `<input>` element.
+ * @returns The rendered `<input>` element with merged classes, a `data-slot="input"` attribute, and all other provided props forwarded.
+ */
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
     <input

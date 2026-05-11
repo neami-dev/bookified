@@ -5,6 +5,12 @@ import { Label as LabelPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Render a styled label element that wraps Radix UI's LabelPrimitive.Root and applies default Tailwind classes.
+ *
+ * @param className - Additional class names to merge with the component's default styling
+ * @returns A React element for a label with the default styles, merged `className`, `data-slot="label"`, and all other props forwarded
+ */
 function Label({
   className,
   ...props
