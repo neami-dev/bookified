@@ -45,19 +45,23 @@ const FileUploader = <T extends FieldValues>({
     );
 
     const isUploaded = !!value;
+    const fileInputId = 'file-input-' + Math.random().toString(36).substr(2, 9);
 
     return (
         <Field className="w-full">
             <FieldContent>
                 <FieldLabel className="form-label">{label}</FieldLabel>
-                <div
+                <label
+                    htmlFor={fileInputId}
                     className={cn(
-                        'upload-dropzone border-2 border-dashed border-[#8B7355]/20',
-                        isUploaded && 'upload-dropzone-uploaded'
+                        'upload-dropzone border-2 border-dashed border-[#8B7355]/20 cursor-pointer',
+                        isUploaded && 'upload-dropzone-uploaded',
+                        disabled && 'cursor-not-allowed opacity-50'
                     )}
-                    onClick={() => !disabled && inputRef.current?.click()}
+                    aria-disabled={disabled}
                 >
                     <input
+                        id={fileInputId}
                         type="file"
                         accept={acceptTypes.join(',')}
                         className="hidden"
@@ -84,7 +88,7 @@ const FileUploader = <T extends FieldValues>({
                             <p className="upload-dropzone-hint">{hint}</p>
                         </>
                     )}
-                </div>
+                </label>
             </FieldContent>
         </Field>
     );

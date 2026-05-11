@@ -97,6 +97,7 @@ const FieldError = React.forwardRef<
     return (
         <div
             ref={ref}
+            role="alert"
             className={cn("text-sm font-medium text-destructive", className)}
             {...props}
         >
