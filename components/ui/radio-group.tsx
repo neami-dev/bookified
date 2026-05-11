@@ -5,6 +5,11 @@ import { RadioGroup as RadioGroupPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Render a Radix RadioGroup root with a default grid layout and merged `className`.
+ *
+ * @returns The rendered `RadioGroupPrimitive.Root` element with default layout classes, any provided `className`, and all forwarded props.
+ */
 function RadioGroup({
   className,
   ...props
@@ -18,6 +23,12 @@ function RadioGroup({
   )
 }
 
+/**
+ * Render a radio-group item with a set of default visual and state styles and a centered selected indicator.
+ *
+ * @param className - Additional CSS class names to merge with the component's default classes
+ * @returns The rendered radio group item element
+ */
 function RadioGroupItem({
   className,
   ...props

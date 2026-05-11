@@ -4,6 +4,12 @@ import { twMerge } from 'tailwind-merge';
 import { DEFAULT_VOICE, voiceOptions } from './constants';
 
 
+/**
+ * Compose and merge CSS class name inputs into a single string, resolving Tailwind CSS conflicts.
+ *
+ * @param inputs - One or more class values (strings, arrays, or objects) to be combined
+ * @returns The merged class name string with conflicting Tailwind classes resolved
+ */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -11,7 +17,12 @@ export function cn(...inputs: ClassValue[]) {
 // Serialize Mongoose documents to plain JSON objects (strips ObjectId, Date, etc.)
 export const serializeData = <T>(data: T): T => JSON.parse(JSON.stringify(data));
 
-// Auto generate slug
+/**
+ * Create a URL-friendly slug from input text.
+ *
+ * @param text - Input string (for example a filename or title) to convert into a slug
+ * @returns A lowercase, URL-safe slug with words joined by hyphens, file extension removed, and no leading or trailing hyphens
+ */
 export function generateSlug(text: string): string {
   return text
       .replace(/\.[^/.]+$/, '') // Remove file extension (.pdf, .txt, etc.)
@@ -90,6 +101,13 @@ export const formatDuration = (seconds: number): string => {
   return `${mins}:${secs.toString().padStart(2, '0')}`;
 };
 
+/**
+ * Parses a PDF File, extracting text segments for search and rendering the first page as a PNG cover image.
+ *
+ * @param file - The PDF file to parse
+ * @returns An object with `content` containing an array of text segments and `cover` containing a PNG data URL of the first page
+ * @throws Error if the PDF cannot be read, rendered, or parsed
+ */
 export async function parsePDFFile(file: File) {
   try {
     const pdfjsLib = await import('pdfjs-dist');
