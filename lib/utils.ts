@@ -25,12 +25,12 @@ export const serializeData = <T>(data: T): T => JSON.parse(JSON.stringify(data))
  */
 export function generateSlug(text: string): string {
   return text
-      .replace(/\.[^/.]+$/, '') // Remove file extension (.pdf, .txt, etc.)
-      .toLowerCase() // Convert to lowercase
-      .trim() // Remove whitespace from both ends
-      .replace(/[^\w\s-]/g, '') // Remove special characters (keep letters, numbers, spaces, hyphens)
-      .replace(/[\s_]+/g, '-') // Replace spaces and underscores with hyphens
-      .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+    .replace(/\.[^/.]+$/, '') // Remove file extension (.pdf, .txt, etc.)
+    .toLowerCase() // Convert to lowercase
+    .trim() // Remove whitespace from both ends
+    .replace(/[^\w\s-]/g, '') // Remove special characters (keep letters, numbers, spaces, hyphens)
+    .replace(/[\s_]+/g, '-') // Replace spaces and underscores with hyphens
+    .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
 }
 
 // Escape regex special characters to prevent ReDoS attacks
@@ -40,9 +40,9 @@ export const escapeRegex = (str: string): string => {
 
 // Splits text content into segments for MongoDB storage and search
 export const splitIntoSegments = (
-    text: string,
-    segmentSize: number = 500, // Maximum words per segment
-    overlapSize: number = 50, // Words to overlap between segments for context
+  text: string,
+  segmentSize: number = 500, // Maximum words per segment
+  overlapSize: number = 50, // Words to overlap between segments for context
 ): TextSegment[] => {
   // Validate parameters to prevent infinite loops
   if (segmentSize <= 0) {
@@ -110,13 +110,11 @@ export const formatDuration = (seconds: number): string => {
  */
 export async function parsePDFFile(file: File) {
   try {
-    const pdfjsLib = await import('pdfjs-dist');
+    const pdfjsLib = await import('pdfjs-dist/legacy/build/pdf.mjs');
 
     if (typeof window !== 'undefined') {
-      pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-          'pdfjs-dist/build/pdf.worker.min.mjs',
-          import.meta.url,
-      ).toString();
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        new URL('pdfjs-dist/legacy/build/pdf.worker.min.mjs', import.meta.url).toString();
     }
 
     // Read file as array buffer
@@ -145,10 +143,6 @@ export async function parsePDFFile(file: File) {
       canvas: canvas,
     }).promise;
 
-    //  await firstPage.render({
-    //   canvasContext: context,
-    //   viewport: viewport,
-    // }).promise;
     // Convert canvas to data URL
     const coverDataURL = canvas.toDataURL('image/png');
 
@@ -159,9 +153,9 @@ export async function parsePDFFile(file: File) {
       const page = await pdfDocument.getPage(pageNum);
       const textContent = await page.getTextContent();
       const pageText = textContent.items
-          .filter((item) => 'str' in item)
-          .map((item) => (item as { str: string }).str)
-          .join(' ');
+        .filter((item) => 'str' in item)
+        .map((item) => (item as { str: string }).str)
+        .join(' ');
       fullText += pageText + '\n';
     }
 
